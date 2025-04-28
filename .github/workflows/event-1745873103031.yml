@@ -1,0 +1,31 @@
+name: Event Reminder—Team Standup Meeting
+
+on:
+  schedule:
+    # This is in UTC time
+    - cron: '19 2 29 4 *'
+  workflow_dispatch:
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Event Logs
+        run: |
+          echo "Event: Team Standup Meeting, Description: Daily team standup to discuss progress and blockers, Event Time: 2025-04-29T02:20:00Z"
+      - name: Send Email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "Event Reminder: Team Standup Meeting"
+          body: |
+            EVENT REMINDER
+            ===============
+            Event Name: Team Standup Meeting
+            Description: Daily team standup to discuss progress and blockers
+            Event Time: 2025-04-29T02:20:00Z
+          to: 22052939@kiit.ac.in
+          from: Your GitHub Actions <souradipsaha2004@gmail.com>
