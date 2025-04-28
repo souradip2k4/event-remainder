@@ -1,0 +1,29 @@
+name: Sample Event Reminder
+
+on:
+  # This is just a sample - actual workflows will be created with specific cron schedules
+  # workflow_dispatch:
+  # Example of a cron schedule (runs at 10:00 UTC every day)
+  # schedule:
+  #   - cron: '0 10 * * *'
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "Event Reminder: Your Important Event"
+          body: |
+            EVENT REMINDER
+            ===============
+            Event Name: Important Meeting
+            Description: Discuss project timeline
+            Event Time: 2023-05-15T14:00:00Z
+          to: recipient@example.com
+          from: Your GitHub Actions <sender@example.com>
