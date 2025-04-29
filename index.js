@@ -127,11 +127,13 @@ jobs:
   }
 }
 
-function getCronExpression(date) {
-  const minutes = date.getUTCMinutes();
-  const hours = date.getUTCHours();
-  const dayOfMonth = date.getUTCDate();
-  const month = date.getUTCMonth() + 1; // Months are 0-indexed in JS
+function getCronExpression(dateTimeString) {
+
+  const dateUTC = new Date(dateTimeString.getTime() - 5.5 * 60 * 60 * 1000);
+  const minutes = dateUTC.getUTCMinutes();
+  const hours = dateUTC.getUTCHours();
+  const dayOfMonth = dateUTC.getUTCDate();
+  const month = dateUTC.getUTCMonth() + 1; // Months are 0-indexed in JS
 
   return `${minutes} ${hours} ${dayOfMonth} ${month} *`;
 }
