@@ -1,0 +1,31 @@
+name: Event Reminder—A gentle remiander
+
+on:
+  schedule:
+    # This is in UTC time
+    - cron: '29 10 30 4 *'
+  workflow_dispatch:
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Event Logs
+        run: |
+          echo "Event: A gentle remiander, Description: A gentle remiander, Event Time: 2025-04-30T16:00:00Z"
+      - name: Send Email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "Event Reminder: A gentle remiander"
+          body: |
+            EVENT REMINDER
+            ===============
+            Event Name: A gentle remiander
+            Description: A gentle remiander
+            Event Time: 2025-04-30T16:00:00Z
+          to: 22052939@kiit.ac.in
+          from: Your GitHub Actions <souradipsaha2004@gmail.com>
