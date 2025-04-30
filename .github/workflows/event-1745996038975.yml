@@ -1,0 +1,31 @@
+name: Event Reminder—Startup meetig
+
+on:
+  schedule:
+    # This is in UTC time
+    - cron: '59 6 30 4 *'
+  workflow_dispatch:
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Event Logs
+        run: |
+          echo "Event: Startup meetig, Description: Startup meeting, Event Time: 2025-04-30T12:30:00Z"
+      - name: Send Email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "Event Reminder: Startup meetig"
+          body: |
+            EVENT REMINDER
+            ===============
+            Event Name: Startup meetig
+            Description: Startup meeting
+            Event Time: 2025-04-30T12:30:00Z
+          to: 22052939@kiit.ac.in
+          from: Your GitHub Actions <souradipsaha2004@gmail.com>
