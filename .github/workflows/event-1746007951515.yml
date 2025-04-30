@@ -1,0 +1,31 @@
+name: Event Reminder—Online test
+
+on:
+  schedule:
+    # This is in UTC time
+    - cron: '19 11 30 4 *'
+  workflow_dispatch:
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Event Logs
+        run: |
+          echo "Event: Online test, Description: Online test, Event Time: 2025-04-30T16:50:00Z"
+      - name: Send Email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "Event Reminder: Online test"
+          body: |
+            EVENT REMINDER
+            ===============
+            Event Name: Online test
+            Description: Online test
+            Event Time: 2025-04-30T16:50:00Z
+          to: 22052939@kiit.ac.in
+          from: Your GitHub Actions <souradipsaha2004@gmail.com>
