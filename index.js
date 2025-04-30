@@ -128,8 +128,8 @@ jobs:
 }
 
 function getCronExpression(dateTimeString) {
-
-  const dateUTC = new Date(dateTimeString.getTime() - 5.5 * 60 * 60 * 1000);
+  const dateIST = new Date(dateTimeString.getTime());
+  const dateUTC = new Date(dateIST.getTime() - 5.5 * 60 * 60 * 1000);
   const minutes = dateUTC.getUTCMinutes();
   const hours = dateUTC.getUTCHours();
   const dayOfMonth = dateUTC.getUTCDate();
